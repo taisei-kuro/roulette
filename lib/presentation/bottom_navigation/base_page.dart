@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:roulette/presentation/home_page/home_page.dart';
-import 'package:roulette/presentation/member_list_page/member_list_page.dart';
+import 'package:roulette_app/presentation/member_list_page/member_list_page.dart';
+import 'package:roulette_app/roulette_page/roulette_page.dart';
 
 class BasePage extends StatefulWidget {
-  const BasePage({Key? key}) : super(key: key);
-
+  const BasePage({super.key});
   @override
-  State<BasePage> createState() => _MyStatefulWidgetState();
+  BasePageState createState() => BasePageState();
 }
 
-class _MyStatefulWidgetState extends State<BasePage> {
+class BasePageState extends State<BasePage> {
   static const _screens = [
-    HomePage(),
+    RoulettePage(),
     MemberListPage(),
   ];
 
