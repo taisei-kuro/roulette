@@ -1,7 +1,4 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:roulette_app/presentation/add_member_page/add_member_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -20,7 +17,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TableCalendar - Basics'),
+        title: const Text('TableCalendar - Basics'),
       ),
       body: TableCalendar(
         firstDay: DateTime.utc(2020, 1, 1),

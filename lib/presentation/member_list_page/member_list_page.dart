@@ -22,6 +22,19 @@ class _MemberListPageState extends State<MemberListPage> {
   List<String> elem = [];
   // 要素にチェックが入っているかをboolで格納しておく用
   List<bool> checkBox = [];
+  // List<bool> checkBo = [
+  //   true,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  //   false
+  // ];
   // チェックボックスで選択されている要素を格納する用
   List<String> checkedElem = [];
   // 画面上部に表示する要素を格納する用
@@ -39,25 +52,30 @@ class _MemberListPageState extends State<MemberListPage> {
 // ドキュメント一覧取得
     final snapshot =
         await FirebaseFirestore.instance.collection('members').get();
-    setState(() {
-      documentList = snapshot.docs;
+    setState(
+      () {
+        documentList = snapshot.docs;
 
-      for (dynamic document in documentList) {
-        //documentListに入ってる'text'フィールドを、Stringとして判断してください(as String)
-        //Stringにしてからelem配列に一つずつ格納している
-        elem.add(document.data()!['text'] as String);
-        checkedElem.add(document.data()!['text'] as String);
-        //ついでに全てのtextを一旦trueにしてcheckboxに格納する
-        checkBox.add(true);
-      }
-    });
+        for (dynamic document in documentList) {
+          //documentListに入ってる'text'フィールドを、Stringとして判断してください(as String)
+          //Stringにしてからelem配列に一つずつ格納している
+          elem.add(document.data()!['text'] as String);
+          checkedElem.add(document.data()!['text'] as String);
+          //ついでに全てのtextを一旦trueにしてcheckboxに格納する
+          checkBox.add(true);
+        }
+      },
+    );
   }
 
   void startTimer() {
     if (elem.length > 0 && checkedElem.length > 1) {
       isStart = !isStart;
       if (isStart) {
-        timer = Timer.periodic(Duration(milliseconds: 100), onTimer);
+        timer = Timer.periodic(
+          const Duration(milliseconds: 10),
+          onTimer,
+        );
       } else {
         setState(() {
           timer.cancel();
@@ -129,10 +147,26 @@ class _MemberListPageState extends State<MemberListPage> {
                     children: documents.map((document) {
                       return Card(
                         child: ListTile(
-                          title: Text(document['text']),
-                          subtitle: Text(
-                            '通算回数${document['text']}',
+                          leading: Checkbox(
+                            value: checkBox[index], //チェック中かどうか
+                            onChanged: (val) {
+                              if (!isStart) {
+                                setState(
+                                  () {
+                                    checkBox[index] = val!;
+                                    if (val) {
+                                      checkedElem.add(elem[index]);
+                                    } else {
+                                      checkedElem.remove(elem[index]);
+                                    }
+                                    // チェックした選択肢を追加、削除した際にはRangeErrorを回避するために一旦結果表示をリセット
+                                    displayWord = 'Roulette';
+                                  },
+                                );
+                              }
+                            },
                           ),
+                          title: Text(document['text']),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () async {
