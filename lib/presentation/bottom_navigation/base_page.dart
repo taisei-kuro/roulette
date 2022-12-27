@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:roulette/presentation/home_page/home_page.dart';
-import 'package:roulette/presentation/member_list_page/member_list_page.dart';
+import 'package:roulette_app/presentation/calendar_page/calendar_page.dart';
+import 'package:roulette_app/presentation/member_list_page/member_list_page.dart';
 
 class BasePage extends StatefulWidget {
-  const BasePage({Key? key}) : super(key: key);
-
+  const BasePage({super.key});
   @override
-  State<BasePage> createState() => _MyStatefulWidgetState();
+  BasePageState createState() => BasePageState();
 }
 
-class _MyStatefulWidgetState extends State<BasePage> {
+class BasePageState extends State<BasePage> {
   static const _screens = [
-    HomePage(),
     MemberListPage(),
+    CalendarPage(),
   ];
 
   int _selectedIndex = 0;
@@ -31,8 +30,9 @@ class _MyStatefulWidgetState extends State<BasePage> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
             BottomNavigationBarItem(icon: Icon(Icons.list), label: 'メンバー'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month), label: 'カレンダー'),
           ],
           type: BottomNavigationBarType.fixed,
         ));
