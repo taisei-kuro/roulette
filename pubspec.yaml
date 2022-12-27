@@ -47,6 +47,8 @@ dependencies:
   roulette: ^0.1.3
   font_awesome_flutter: ^10.3.0
   riverpod: ^2.1.2
+  table_calendar: ^3.0.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

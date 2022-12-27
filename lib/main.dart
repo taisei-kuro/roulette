@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:roulette_app/firebase_options.dart';
 import 'package:roulette_app/presentation/bottom_navigation/base_page.dart';
 
@@ -9,9 +9,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
+  initializeDateFormatting('ja').then(
+    (_) => runApp(
+      const MyApp(),
     ),
   );
 }
