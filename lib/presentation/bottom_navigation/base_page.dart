@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:roulette_app/presentation/calendar_page/calendar_page.dart';
 import 'package:roulette_app/presentation/member_list_page/member_list_page.dart';
-import 'package:roulette_app/roulette_page/roulette_page.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({super.key});
@@ -10,8 +10,8 @@ class BasePage extends StatefulWidget {
 
 class BasePageState extends State<BasePage> {
   static const _screens = [
-    RoulettePage(),
     MemberListPage(),
+    CalendarPage(),
   ];
 
   int _selectedIndex = 0;
@@ -30,8 +30,9 @@ class BasePageState extends State<BasePage> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
             BottomNavigationBarItem(icon: Icon(Icons.list), label: 'メンバー'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_month), label: 'カレンダー'),
           ],
           type: BottomNavigationBarType.fixed,
         ));
